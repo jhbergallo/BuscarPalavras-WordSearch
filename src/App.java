@@ -1,32 +1,42 @@
-
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
-
-
+import java.util.ArrayList;
 public class App {
     public static void main(String[] args) {
-        LinkedList<Palavra> lista = new LinkedList<>();
-        String aux[];
-                
-        Path path1 = Paths.get("dicionario.csv");
-
-        try (BufferedReader reader = Files.newBufferedReader(path1, Charset.forName("UTF-8"))) {// Charset.defaultCharset())
+        ArrayList<Palavra> lista = new ArrayList<>();
+        String linhas[] = new String[200];
+        int numlinhas = 0;
+        Path filePath = Paths.get("dicionario.csv");
+        
+        //ler o arquivo
+        try(BufferedReader reader = Files.newBufferedReader(filePath, Charset.forName("UTF-8"))){
             String line = reader.readLine();
-            while (line != null) {
-                aux = line.split(";");
-                Palavra p = new Palavra(aux[0],aux[1]);
-                lista.add(p);
+            while(line != null){
+                linhas[numlinhas] = line;
+                numlinhas++;
                 line = reader.readLine();
             }
-        } catch (IOException e) {
-            System.err.format("Erro na leitura do arquivo: ", e);
-        }  
-        System.out.println("Lista de palavras e seus significados" + lista);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            System.err.format("Erro na leitura do arquivo");
+        }
+        for(int i = 0; i < numlinhas; i++){
+
+            String[] campos = linhas[i].split(";");
+
+            String palavra = campos[0];
+            String significado = campos[1];
+
+            Palavra palavras = new Palavra(palavra, significado);
+            lista.add(palavras);
+
+        }
+        
+        System.out.println(lista);
         
     }
  
