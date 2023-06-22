@@ -1,5 +1,5 @@
-
 public class Palavra {
+    
     private String palavra;
     private String significado;
 
@@ -18,7 +18,7 @@ public class Palavra {
 
     @Override
     public String toString() {
-        return palavra + ": " + significado + "\n";
+        return palavra + "--> " + significado + "\n";
     }
 
     

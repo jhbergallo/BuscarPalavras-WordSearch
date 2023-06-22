@@ -1,10 +1,6 @@
-// 4645G-04 - Algoritmos e Estruturas de Dados I
-// 2023-1
-
+import java.util.ArrayList;
 import java.util.List;
-
 public class WordTree {
-    
     // Classe interna
     private class CharNode {
         private char character;
@@ -13,21 +9,41 @@ public class WordTree {
         private CharNode father;
         private List<CharNode> children;
 
-        public CharNode(char character) {
-        
+        public CharNode(char character){
+            this.character = character;
+            this.significado = null;
+            this.isFinal = false;
+            this.father = null;
+            this.children = new ArrayList<CharNode>();
         }
-        
         public CharNode(char character, boolean isFinal) {
-            
+            this.character = character;
+            this.significado = null;
+            this.isFinal = isFinal;
+            this.father = null;
+            this.children = new ArrayList<CharNode>();
         }
 
-        /**
-        * Adiciona um filho (caracter) no nodo. Não pode aceitar caracteres repetidos.
-        * @param character - caracter a ser adicionado
-        * @param isfinal - se é final da palavra ou não
-        */
+        
+        //Adiciona um filho (caracter) no nodo. Não pode aceitar caracteres repetidos.
+        //@param character - caracter a ser adicionado
+        //@param isfinal - se é final da palavra ou não
         public CharNode addChild (char character, boolean isfinal) {
-            return null;
+            CharNode child = findChildChar(character);
+            if (child != null) { // O caractere já existe como filho 
+                if (child.isFinal && !isfinal) {
+                    // Se o filho for final da palavra e o novo não for,
+                    // atualiza o estado de final da palavra do filho existente
+                    child.isFinal = false;
+                }
+                return child;
+            } 
+            else { // O caractere não existe como filho 
+                CharNode newChild = new CharNode(character, isfinal);
+                newChild.father = this;
+                children.add(newChild);
+                return newChild;
+            }
         }
         
         public int getNumberOfChildren () {

@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 public class App {
     public static void main(String[] args) {
+        
         ArrayList<Palavra> lista = new ArrayList<>();
         String linhas[] = new String[200];
         int numlinhas = 0;
