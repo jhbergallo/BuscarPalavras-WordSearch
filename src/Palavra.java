@@ -16,10 +16,13 @@ public class Palavra {
         return significado;
     }
 
+    public int length(){
+        return palavra.length();
+    }
+
     @Override
     public String toString() {
         return palavra + "--> " + significado + "\n";
     }
-
-    
+ 
 }
