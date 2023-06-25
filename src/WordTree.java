@@ -65,14 +65,15 @@ public class WordTree {
 
         //Obtém a palavra correspondente a este nodo, subindo até a raiz da árvore
         //@return a palavra
-        private String getWord(){
+        private Palavra getWord(){
             StringBuilder word = new StringBuilder();
             CharNode current = this;
             while (current != null) {
                 word.insert(0, current.character);
                 current = current.father;
             }
-            return word.toString();
+            Palavra palavra = new Palavra(word.toString(), current.toString());
+            return palavra;
         }
         
         //Encontra e retorna o nodo que tem determinado caracter.
@@ -158,8 +159,8 @@ public class WordTree {
     //Percorre a árvore e retorna uma lista com as palavras iniciadas pelo prefixo dado.
     //Tipicamente, um método recursivo.
     //@param prefix
-    public List<String> searchAll(String prefix) {
-        List<String> lista = new ArrayList<>();
+    public List<Palavra> searchAll(String prefix) {
+        List<Palavra> lista = new ArrayList<>();
         
         CharNode prefixNode = findCharNodeForWord(prefix);
         if (prefixNode != null){
@@ -167,7 +168,7 @@ public class WordTree {
         }
         return lista;
     }
-    private void searchAll(CharNode node, List<String> lista) {
+    private void searchAll(CharNode node, List<Palavra> lista) {
         if(node.isFinal){
             lista.add(node.getWord());
         }
@@ -202,6 +203,7 @@ public class WordTree {
             String significado = campos[1];
 
             Palavra palavras = new Palavra(palavra, significado);
+            addWord(palavra);
         
         }
         
