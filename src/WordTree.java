@@ -122,23 +122,6 @@ public class WordTree {
         return totalNodes;
     }
     
-    //Adiciona palavra na estrutura em árvore
-    //param word
-    // public void addWord(Palavra palavra) {
-    //     CharNode current = root;
-        
-    //     for(int i = 0; i < palavra.getPalavra().length(); i++){
-    //         char character = palavra.getPalavra().charAt(i);
-    //         boolean isFinal = (i == palavra.getPalavra().length() - 1);
-    //         current = current.addChild(character, isFinal);
-    //         totalNodes++;
-    //     }
-        
-    //     if(!current.isFinal){ // Se o último caractere não for final da palavra, atualiza para final
-    //         current.isFinal = true;
-    //         totalWords++;
-    //     }
-    // }
 
     public void addWord(String palavra, String significado) {
     CharNode current = root;
