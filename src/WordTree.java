@@ -72,8 +72,8 @@ public class WordTree {
                 word.insert(0, current.character);
                 current = current.father;
             }
-            Palavra palavra = new Palavra(word.toString(), this.getSignificado());
-            return palavra;
+           
+            return new Palavra(word.toString(), this.getSignificado());
         }
         
         //Encontra e retorna o nodo que tem determinado caracter.
