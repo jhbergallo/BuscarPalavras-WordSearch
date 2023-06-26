@@ -72,7 +72,7 @@ public class WordTree {
                 word.insert(0, current.character);
                 current = current.father;
             }
-            Palavra palavra = new Palavra(word.toString(), current.toString());
+            Palavra palavra = new Palavra(word.toString(), this.getSignificado());
             return palavra;
         }
         
@@ -124,21 +124,38 @@ public class WordTree {
     
     //Adiciona palavra na estrutura em árvore
     //param word
-    public void addWord(String palavra) {
-        CharNode current = root;
+    // public void addWord(Palavra palavra) {
+    //     CharNode current = root;
         
-        for(int i = 0; i < palavra.length(); i++){
-            char character = palavra.charAt(i);
-            boolean isFinal = (i == palavra.length() - 1);
-            current = current.addChild(character, isFinal);
-            totalNodes++;
-        }
+    //     for(int i = 0; i < palavra.getPalavra().length(); i++){
+    //         char character = palavra.getPalavra().charAt(i);
+    //         boolean isFinal = (i == palavra.getPalavra().length() - 1);
+    //         current = current.addChild(character, isFinal);
+    //         totalNodes++;
+    //     }
         
-        if(!current.isFinal){ // Se o último caractere não for final da palavra, atualiza para final
-            current.isFinal = true;
-            totalWords++;
-        }
+    //     if(!current.isFinal){ // Se o último caractere não for final da palavra, atualiza para final
+    //         current.isFinal = true;
+    //         totalWords++;
+    //     }
+    // }
+
+    public void addWord(String palavra, String significado) {
+    CharNode current = root;
+
+    for (int i = 0; i < palavra.length(); i++) {
+        char character = palavra.charAt(i);
+        boolean isFinal = (i == palavra.length() - 1);
+        current = current.addChild(character, isFinal);
+        totalNodes++;
     }
+
+    if (!current.isFinal) { // Se o último caractere não for final da palavra, atualiza para final
+        current.isFinal = true;
+        totalWords++;
+    }
+    current.setSignificado(significado); // Adiciona o significado da palavra
+}
     
     //Vai descendo na árvore até onde conseguir encontrar a palavra
     //@param word
@@ -148,13 +165,24 @@ public class WordTree {
         
         for (int i = 0; i < palavra.length(); i++){
             char character = palavra.charAt(i);
-            current = current.findChildChar(character);
+            // current = current.findChildChar(character);
+            current = findChildIgnoreCase(current, character);
             if (current == null){ // Caractere não encontrado, palavra não existe na árvore
                 return null;
             }
         }
         return current;
     }
+
+    private CharNode findChildIgnoreCase(CharNode node, char character) {
+    char lowercaseCharacter = Character.toLowerCase(character);
+    for (CharNode child : node.children) {
+        if (Character.toLowerCase(child.character) == lowercaseCharacter) {
+            return child;
+        }
+    }
+    return null;
+}
 
     //Percorre a árvore e retorna uma lista com as palavras iniciadas pelo prefixo dado.
     //Tipicamente, um método recursivo.
@@ -202,8 +230,7 @@ public class WordTree {
             String palavra = campos[0];
             String significado = campos[1];
 
-            Palavra palavras = new Palavra(palavra, significado);
-            addWord(palavra);
+            addWord(palavra, significado);
         
         }
         

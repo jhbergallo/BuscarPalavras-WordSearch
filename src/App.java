@@ -8,40 +8,47 @@ public class App {
         WordTree arvore = new WordTree();
         arvore.lerArquivo("dicionario.csv");
 
-        Scanner in = new Scanner(System.in);
-        List<Palavra> palavras = new ArrayList<>();
-        int escolha = 0;
-        int index = 0;
-        String palavra = "";
-       
-        while(escolha != 4){
-             
-            System.out.println();                                            
-            System.out.println("======================================================");
-            System.out.println("|                       |MENU|                       |");
-            System.out.println("======================================================");
-            System.out.println("|1 - Procurar uma palavra                            |");
-            System.out.println("|2 - Lista com maior sinalizção                      |");
-            System.out.println("|3 - Mês com maior implementação de placas           |");
-            System.out.println("|4 - Sair do sistema                                 |");
-            System.out.printf("|____________________________________________________|");
-            System.out.println();
-           
-            escolha = in.nextInt();
-            in.nextLine();
 
-            switch(escolha){
-                
-                case 1: 
-                System.out.println("Digite os caracteres a serem buscados");
-                    palavra = in.nextLine();
-                    palavras = arvore.searchAll(palavra);
-                    for(Palavra pal : palavras){
-                        System.out.println(pal.toString());
-                    }
-                break;
+        Scanner in = new Scanner(System.in);
+        
+        String caracteres = "";
+
+        
+
+        while (!caracteres.equalsIgnoreCase("N")) {
+            System.out.print("\nDigite os caracteres para pesquisa:\n");
+            caracteres = in.nextLine();
+
+            List<Palavra> palavras = arvore.searchAll(caracteres);
+
+            if (palavras.isEmpty()) {
+                System.out.println("\nNenhuma palavra encontrada com os caracteres fornecidos!\n");
+                System.out.println("\nDeseja procurar outra palavra? (S/N)");
+                caracteres = in.nextLine();
+            } else {
+                System.out.println("\nPalavras encontradas:");
+                for (int i = 0; i < palavras.size(); i++) {
+                    System.out.println((i + 1) + ". " + palavras.get(i).getPalavra());
+                }
+                System.out.println("Escolha o número da palavra para ver o significado (ou 0 para procurar outra palavra):");
+                int escolha = Integer.parseInt(in.nextLine());
+
+                if (escolha == 0) {
+                    continue;
+                } else if (escolha > 0 && escolha <= palavras.size()) {
+                    Palavra palavraEscolhida = palavras.get(escolha - 1);
+                    System.out.println("\nSignificado de " + palavraEscolhida.getPalavra() + ":");
+                    System.out.println(palavraEscolhida.getSignificado());
+                } else {
+                    System.out.println("Escolha inválida!");
+                }
+
+                System.out.println("\nDeseja procurar outra palavra? (S/N)");
+                caracteres = in.nextLine();
             }
         }
+
+        in.close();
 
         
 
