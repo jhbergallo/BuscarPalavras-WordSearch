@@ -1,0 +1,2 @@
+- Recebe um arquivo csv com palavras e significados e forma uma árvore genérica com os caracteres dessas palavras.
+- É possível consultar cada palavra separadamente, assim como seus significados.
