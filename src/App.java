@@ -20,7 +20,7 @@ public class App {
 
             List<Palavra> palavras = arvore.searchAll(caracteres);
 
-            if (caracteres.matches(".*\\d.*")) {
+            if (caracteres.matches(".*\\d.*")) {//verifica se é um número
                 System.out.println("\nVocê inseriu um número! Insira apenas letras.\n");
             } else {
                 if (palavras.isEmpty()) {
@@ -44,13 +44,14 @@ public class App {
                 } else if (escolha > 0 && escolha <= palavras.size()) {
                     Palavra palavraEscolhida = palavras.get(escolha - 1);
                     System.out.println("\nSignificado de" + palavraEscolhida.getPalavra() + ":\n");
-                    System.out.println(palavraEscolhida.getSignificado());
+                    System.out.println(palavraEscolhida.getSignificado() + "\n");
                 } else {
                     System.out.println("\nEscolha inválida!");
                 }
 
                 System.out.println("\nDeseja procurar outra palavra? (S/N)");
                 caracteres = in.nextLine();
+                System.out.println("\n\n");
                 }
             }
             
