@@ -189,7 +189,7 @@ public class WordTree {
     } 
 
     public void lerArquivo(String arquivo){
-        String linhas[] = new String[200];
+        String linhas[] = new String[210];
         int numlinhas = 0;
         Path filePath = Paths.get(arquivo);
         
